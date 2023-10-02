@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Input Transaksi</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Simpan</button>
+  </form>
+  <br>
+  <a href="{% url 'transaction_list' %}" class="btn btn-secondary">Lihat Daftar Transaksi</a>
+{% endblock %}

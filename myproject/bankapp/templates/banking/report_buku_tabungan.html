@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Laporan Buku Tabungan</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Tanggal Transaksi</th>
+        <th>Deskripsi</th>
+        <th>Credit</th>
+        <th>Debit</th>
+        <th>Saldo</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if transactions %}
+        {% with saldo=0 %}
+          {% for transaction in transactions %}
+          <tr>
+            <td>{{ transaction.transaction_date }}</td>
+            <td>{{ transaction.description }}</td>
+            <td>
+              {% if transaction.debit_credit_status == 'C' %}
+                {{ transaction.amount }}
+              {% endif %}
+            </td>
+            <td>
+              {% if transaction.debit_credit_status == 'D' %}
+                {{ transaction.amount }}
+              {% endif %}
+            </td>
+            <td>
+                {{ transaction.balance }}
+            </td>
+            {% if transaction.debit_credit_status == 'C' %}
+              {% with saldo=saldo|add:transaction.amount %}
+              {% endwith %}
+            {% endif %}
+          </tr>
+          {% endfor %}
+        {% endwith %}
+      {% else %}
+        <tr>
+          <td colspan="5">Tidak ada transaksi dalam rentang tanggal yang dipilih.</td>
+        </tr>
+      {% endif %}
+    </tbody>
+  </table>
+{% endblock %}

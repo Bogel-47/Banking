@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Daftar Nasabah</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Account ID</th>
+        <th>Nama</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for customer in customers %}
+      <tr>
+        <td>{{ customer.account_id }}</td>
+        <td>{{ customer.name }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="2">Belum ada nasabah.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'input_customer' %}" class="btn btn-primary">Input Data Nasabah</a>
+{% endblock %}
